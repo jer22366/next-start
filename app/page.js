@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 export default function Home(props) {
   return (
     <>
-      <div>首頁</div>
+      <h1>首頁</h1>
     </>
   )
 }
