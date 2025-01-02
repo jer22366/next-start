@@ -158,16 +158,17 @@ export default function ObjectArrayPage() {
           // });
           // setData(nextData);
 
-          // splic(黏接)方法
+          // splice(黏接)方法
           // 有副作用 會更動到呼叫他的陣列 所以不能用狀態直接呼叫
           // 刪除公式: array.splice(deleteIndex, 1)
+
           // 1. 先找到要刪除的成員索引值
-          const foundIndex = data.findIndex((v) => v.id === 4)
+          const foundIndex = data.findIndex((v) => v.id === 4);
 
           // 2. 判斷是否有找到(沒找到會返回-1)
-          if(foundIndex !== -1){
+          if (foundIndex !== -1) {
             // 2-1 拷貝(如果深度不足要做深拷貝)
-            const nextData = [...data]
+            const nextData = [...data];
             // 2-2 在副本上套用刪除公式
             nextData.splice(foundIndex, 1);
             // 3
@@ -180,9 +181,11 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
+          //使用map展開陣列
           const nextData = data.map((v) => {
             if (v.id === 3) {
-              v.text = 'cccc';
+              // 在陣列中找到id為3的物件，並取代文字為cccc
+              return { ...v, text: 'cccc' };
             }
             return v;
           });
@@ -192,28 +195,80 @@ export default function ObjectArrayPage() {
       >
         8. 取代id為3的文字為cccc
       </button>
+
+      <button
+        onClick={() => {
+          // 1. 先找到要取代的成員索引值
+          const foundIndex = data.findIndex((v) => v.id === 3);
+          // 2. 判斷是否有找到(沒找到會返回-1)
+          if (foundIndex !== -1) {
+            // 2-1 拷貝(如果深度不足要做深拷貝)
+            // const nextData = JSON.parse(JSON.stringify(data))
+            const nextData = structuredClone(data);
+            // 2-2 在副本上套用取代公式
+            nextData[foundIndex].text = 'cccc';
+            // 2-3 設定狀態
+            setData(nextData);
+          }
+        }}
+      >
+        8-1. 取代id為3的文字為cccc(深拷貝)
+      </button>
       <br />
       <button
         onClick={() => {
-          const nextData = data.filter((v) => {
-            return;
-          });
-
-          setData(nextData);
+          setData([]);
         }}
       >
         9. 清空表格
       </button>
       <br />
-      <button onClick={() => {
-        const addobj = {id:5,text:'bbbb'}
-        const nextData = data.map((v) => {
-            return v;
-          });
-          
+      <button
+        onClick={() => {
+          //   const nextData = data.map((v) => {
+          //     return v;
+          //   })
+          //     nextData.splice(2,0,{id:5,text:'bbbb'});
+          //     setData(nextData);
+
+          const nextData = [];
+          for (let i = 0; i < data.length; i++) {
+            nextData.push(data[i]);
+            if (data[i].id === 2) {
+              nextData.push({ id: 5, text: 'bbbb' });
+            }
+          }
+
           setData(nextData);
-      }}>
-        10. 在id為2後面插入id為5與文字為bbb的物件
+        }}
+      >
+        10. 在id為2後面插入id為5與文字為bbb的物件(for)
+      </button>
+      <button onClick={() => {
+            // const nextData = data.map((v) => {
+            //   return v;
+            // })
+            //   nextData.splice(data.findIndex((v) => v.id === 2)+1,0,{id:5,text:'bbbb'});
+            //   setData(nextData);
+
+          // splice(黏接)方法
+          // 有副作用 會更動到呼叫他的陣列 所以不能用狀態直接呼叫
+          // 刪除公式: array.splice(foundIndex+1,0 ,insertItem)
+          // 1. 先找到要取代的成員索引值
+          const foundIndex = data.findIndex((v) => v.id === 2);
+
+          // 2. 判斷是否有找到(沒找到會返回-1)
+          if (foundIndex !== -1) {
+            // 2-1 拷貝(如果深度不足要做深拷貝)
+            // const nextData = JSON.parse(JSON.stringify(data))
+            const nextData = [...data];
+            // 2-2 在副本上套用取代公式
+            nextData.splice(foundIndex + 1, 0, { id: 5, text: 'bbb' });
+            // 2-3 設定狀態
+            setData(nextData);
+          }
+        }}>
+        10-1. 在id為2後面插入id為5與文字為bbb的物件(splice)
       </button>
     </>
   );
