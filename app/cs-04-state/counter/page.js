@@ -8,6 +8,8 @@ export default function CounterPage() {
   //定義一組狀態 使用"陣列解構賦值"語法
   // [獲得值的變數, 設定值的方法] = useState(初始值)
   const [total, setTotal] = useState(0);
+
+  const [username, setUsername] = useState('abc')
 //   function autoCounter(){
 //     setTotal(total + 1);
     
@@ -18,6 +20,12 @@ export default function CounterPage() {
     <>
       <h1>計數器</h1>
       <hr />
+      <input type="text" value={username} onChange={(e) =>{
+        const nextUserName = e.target.value
+        setUsername(nextUserName)
+        //模擬和伺服器馬上檢查這帳號是否重複使用
+        console.log(nextUserName)
+      }}/>
       <h1>{total}</h1>
 
       {/* <h1>{setInterval(autoCounter,100)}</h1> */}
@@ -27,6 +35,7 @@ export default function CounterPage() {
             //onClick 是react內部加入的"人造(synthetic)事件"
             // 在react應用中, 只有呼叫setTotal才能更動total
           setTotal(total + 1);
+          console.log('total:', total);
         }}
       >
         +1
