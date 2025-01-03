@@ -1,0 +1,20 @@
+.on {
+  /* 利用style屬性轉成的css變數來代入顏色屬性值*/
+  color: var(--fill-color);
+}
+
+.off {
+   /* 利用style屬性轉成的css變數來代入顏色屬性值 */
+   color: var(--empty-color);
+}
+
+.goodStyle{
+  color:red;
+}
+
+.starBtn{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
