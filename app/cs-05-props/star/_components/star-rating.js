@@ -14,7 +14,7 @@ export default function StarRating({
   onChange = () => {}, // 設定評分回父母元件
   fillColor = 'gold',
   emptyColor = 'gray',
-  icon = <>&#9733;</>
+  icon = <>&#9733;</>,
 }) {
   // 記錄點按時的評分，0代表一開始沒有評分
   const [rating, setRating] = useState(value)

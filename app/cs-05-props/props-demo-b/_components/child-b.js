@@ -6,9 +6,9 @@ export default function ChildB({ setDataFromChild = () => {} }) {
   const [cData, setCData] = useState('child-b data')
 
   // 方式2: 此樣式在子女元件b首次渲染之後，會執行一次第一個傳入參數回呼函式中的程式碼
-  useEffect(() => {
-    setDataFromChild(cData)
-  }, [])
+  // useEffect(() => {
+  //   setDataFromChild(cData)
+  // }, [])
 
   return (
     <>

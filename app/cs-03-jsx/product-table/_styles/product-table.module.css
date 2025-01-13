@@ -1,5 +1,5 @@
-/*css module 需要定義自訂的類別名稱*/
-/*官方建議用 小駝峰命名*/
+/* CSS module需要定義自訂的類別名稱 */
+/* 官方建議用 小駝峰命名(camelCase) */
 .myTable {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -24,6 +24,6 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
 }

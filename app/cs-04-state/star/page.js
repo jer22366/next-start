@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 // 導入.module.css檔案
 import styles from './_styles/star.module.css'
 
+// 星星評分更多教學或相關元件
+// https://github.com/orgs/mfee-react/discussions/60
 export default function StarPage() {
   // 記錄點按時的評分，0代表一開始沒有評分
   const [rating, setRating] = useState(0)

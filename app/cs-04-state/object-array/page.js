@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
 const sample = [
   {
@@ -19,11 +19,11 @@ const sample = [
     id: 4,
     text: 'aa',
   },
-];
+]
 
 export default function ObjectArrayPage() {
   // 呈現(渲染)時會與使用者互動時進行改動，必需是state
-  const [data, setData] = useState(sample);
+  const [data, setData] = useState(sample)
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function ObjectArrayPage() {
                 <td>{v.id}</td>
                 <td>{v.text}</td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -60,17 +60,17 @@ export default function ObjectArrayPage() {
       <button
         onClick={() => {
           // 先寫出要新增的物件值
-          const newObj = { id: 99, text: 'xxx' };
+          const newObj = { id: 99, text: 'xxx' }
 
           // 1. 從目前的狀態拷貝出一個新的變數值(陣列/物件)
           // 2. 在新的變數值(陣列/物件)上作處理
           // 3. 設定回原本的狀態中
 
           //1 //2
-          const nextData = [newObj, ...data];
+          const nextData = [newObj, ...data]
 
           //3
-          setData(nextData);
+          setData(nextData)
         }}
       >
         1. 列表最前面，新增一個物件值id為99與文字為xxx的物件
@@ -78,13 +78,13 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
-          const newObj = { id: 88, text: 'yyy' };
+          const newObj = { id: 88, text: 'yyy' }
 
           //1 //2
-          const nextData = [...data, newObj];
+          const nextData = [...data, newObj]
 
           //3
-          setData(nextData);
+          setData(nextData)
         }}
       >
         2. 列表最後面，新增一個物件值id為88與文字為yyy的物件
@@ -94,47 +94,42 @@ export default function ObjectArrayPage() {
         onClick={() => {
           // 產生不重複id的方式
           // 1. uuid(nanoid另外安裝)
-          // const newId = self.crypto.randomUUID();
+          // const newId = self.crypto.randomUUID()
+          //
+          // 2. 時間日期物件 `+new Date()`或`Date.now()`
+          // const newId = Number(new Date())
+          //
+          // 3. 仿照資料庫資料表自動遞增id欄位(id必須數字值)
+          // 提取所有的id為一個數字陣列 [1,2,3,4]
+          const ids = data.map((v) => v.id)
+          // 新id為最大值+1，如果陣列中沒有資料，則從1開始計算
+          const newId = data.length > 0 ? Math.max(...ids) + 1 : 1
 
-          // 2. 時間日期物件 '+new Data()' 'Data.now()'
-          // const newId = Number(new Date());
-          // const newId = +(new Date());
-          // const newId = Date.now();
+          // 先寫出要新增的物件值
+          const newObj = { id: newId, text: 'xxx' }
 
-          // 3. 仿照資料庫資料表自動遞增id欄位(id必須是數字)
-          // 提取所有的id為一個數字陣列
-          const ids = data.map((v) => v.id);
-          // 新id為最大值加1 如果陣列中沒有資料 則從1開始計算
-          const newId = data.length > 0 ? Math.max(...ids) + 1 : 1;
-          const newObj = { id: newId, text: 'xxx' };
+          //1 //2
+          const nextData = [newObj, ...data]
 
-          const nextData = [newObj, ...data];
-
-          setData(nextData);
+          //3
+          setData(nextData)
         }}
       >
         3. 列表最前面，新增一個文字為xxx的物件(id不能與其它資料重覆)
       </button>
       <br />
-      <button
-        onClick={() => {
-          const ids = data.map((v) => v.id);
-          const newId = data.length > 0 ? Math.max(...ids) + 1 : 1;
-          const newObj = { id: newId, text: 'xxx' };
-
-          const nextData = [...data, newObj];
-          setData(nextData);
-        }}
-      >
+      <button onClick={() => {}}>
         4. 列表最後面，新增一個文字為yyy的物件(id不能與其它資料重覆)
       </button>
       <br />
       <button
         onClick={() => {
-          const nextData = data.filter((v) => {
-            return v.text.includes('a');
-          });
-          setData(nextData);
+          // 1,2
+          const nextData = data.filter((v, i) => {
+            return v.text.includes('a')
+          })
+          //3
+          setData(nextData)
         }}
       >
         5. 尋找(過濾)只呈現所有文字中有包含a英文字母的資料
@@ -142,10 +137,13 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
+          // 1,2
+          // 留下文字不是b的 === 刪除文字為b
           const nextData = data.filter((v) => {
-            return v.text !== 'b';
-          });
-          setData(nextData);
+            return v.text !== 'b'
+          })
+          //3
+          setData(nextData)
         }}
       >
         6. 刪除文字為b的物件資料
@@ -153,62 +151,70 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
-          // const nextData = data.filter((v) => {
-          //   return v.id !== 4;
-          // });
-          // setData(nextData);
-
-          // splice(黏接)方法
-          // 有副作用 會更動到呼叫他的陣列 所以不能用狀態直接呼叫
-          // 刪除公式: array.splice(deleteIndex, 1)
-
-          // 1. 先找到要刪除的成員索引值
-          const foundIndex = data.findIndex((v) => v.id === 4);
-
-          // 2. 判斷是否有找到(沒找到會返回-1)
-          if (foundIndex !== -1) {
-            // 2-1 拷貝(如果深度不足要做深拷貝)
-            const nextData = [...data];
-            // 2-2 在副本上套用刪除公式
-            nextData.splice(foundIndex, 1);
-            // 3
-            setData(nextData);
-          }
+          // 留下id不是4的 === 刪除id為4
+          const nextData = data.filter((v) => {
+            return v.id !== 4
+          })
+          //3
+          setData(nextData)
         }}
       >
         7. 刪除id為4的物件資料
       </button>
+      <button
+        onClick={() => {
+          // splice(粘接)方法
+          // 有副作用，會更動到呼叫它的陣列，所以不能用狀態直接呼叫
+          // 它需要索引值，作為傳入參數，建議套用公式
+          // 刪除公式: array.splice(deleteIndex, 1)
+
+          // 1. 先找到要刪除的成員索引值
+          const foundIndex = data.findIndex((v) => v.id === 4)
+
+          // 2. 判斷是否有找到(沒找到會返回-1)
+          if (foundIndex !== -1) {
+            //2-1 拷貝(如果深度不足要深拷貝)
+            const nextData = [...data]
+            //2-2 在複本上套用刪除公式
+            nextData.splice(foundIndex, 1)
+            //2-3 設定到狀態
+            setData(nextData)
+          }
+        }}
+      >
+        7-1. 刪除id為4的物件資料(splice)
+      </button>
       <br />
       <button
         onClick={() => {
-          //使用map展開陣列
+          // 使用map展開陣列
           const nextData = data.map((v) => {
-            if (v.id === 3) {
-              // 在陣列中找到id為3的物件，並取代文字為cccc
-              return { ...v, text: 'cccc' };
-            }
-            return v;
-          });
+            // 在陣列中找到id為3的物件，並取代文字為cccc
+            if (v.id === 3) return { ...v, text: 'cccc' }
+            // 其它沒有影響的物件值直接返回
+            else return v
+          })
 
-          setData(nextData);
+          // 設定到狀態
+          setData(nextData)
         }}
       >
-        8. 取代id為3的文字為cccc
+        (***)8. 取代id為3的文字為cccc
       </button>
-
       <button
         onClick={() => {
           // 1. 先找到要取代的成員索引值
-          const foundIndex = data.findIndex((v) => v.id === 3);
+          const foundIndex = data.findIndex((v) => v.id === 3)
+
           // 2. 判斷是否有找到(沒找到會返回-1)
           if (foundIndex !== -1) {
-            // 2-1 拷貝(如果深度不足要做深拷貝)
+            //2-1 拷貝(如果深度不足要深拷貝)
             // const nextData = JSON.parse(JSON.stringify(data))
-            const nextData = structuredClone(data);
-            // 2-2 在副本上套用取代公式
-            nextData[foundIndex].text = 'cccc';
-            // 2-3 設定狀態
-            setData(nextData);
+            const nextData = structuredClone(data)
+            // 2-2 在複本上作修改
+            nextData[foundIndex].text = 'cccc'
+            //2-3 設定到狀態
+            setData(nextData)
           }
         }}
       >
@@ -217,7 +223,7 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
-          setData([]);
+          setData([])
         }}
       >
         9. 清空表格
@@ -225,51 +231,44 @@ export default function ObjectArrayPage() {
       <br />
       <button
         onClick={() => {
-          //   const nextData = data.map((v) => {
-          //     return v;
-          //   })
-          //     nextData.splice(2,0,{id:5,text:'bbbb'});
-          //     setData(nextData);
+          const nextData = []
 
-          const nextData = [];
           for (let i = 0; i < data.length; i++) {
-            nextData.push(data[i]);
+            nextData.push(data[i])
+            // 在id為2後面插入id為5與文字為bbb的物件
             if (data[i].id === 2) {
-              nextData.push({ id: 5, text: 'bbbb' });
+              nextData.push({ id: 5, text: 'bbb' })
             }
           }
 
-          setData(nextData);
+          // 設定到狀態
+          setData(nextData)
         }}
       >
-        10. 在id為2後面插入id為5與文字為bbb的物件(for)
+        10. 在id為2後面插入id為5與文字為bbb的物件(for迴圈)
       </button>
-      <button onClick={() => {
-            // const nextData = data.map((v) => {
-            //   return v;
-            // })
-            //   nextData.splice(data.findIndex((v) => v.id === 2)+1,0,{id:5,text:'bbbb'});
-            //   setData(nextData);
-
-          // splice(黏接)方法
-          // 有副作用 會更動到呼叫他的陣列 所以不能用狀態直接呼叫
-          // 刪除公式: array.splice(foundIndex+1,0 ,insertItem)
+      <button
+        onClick={() => {
+          // splice(粘接)方法
+          // 有副作用，會更動到呼叫它的陣列，所以不能用狀態直接呼叫
+          // 它需要索引值，作為傳入參數，建議套用公式
+          // 插入成員在後面公式: array.splice(foundIndex+1, 0, insertItem)
           // 1. 先找到要取代的成員索引值
-          const foundIndex = data.findIndex((v) => v.id === 2);
+          const foundIndex = data.findIndex((v) => v.id === 2)
 
           // 2. 判斷是否有找到(沒找到會返回-1)
           if (foundIndex !== -1) {
-            // 2-1 拷貝(如果深度不足要做深拷貝)
-            // const nextData = JSON.parse(JSON.stringify(data))
-            const nextData = [...data];
-            // 2-2 在副本上套用取代公式
-            nextData.splice(foundIndex + 1, 0, { id: 5, text: 'bbb' });
-            // 2-3 設定狀態
-            setData(nextData);
+            // 2-1 拷貝(如果深度不足要深拷貝)
+            const nextData = [...data]
+            // 2-2 在複本上作修改
+            nextData.splice(foundIndex + 1, 0, { id: 5, text: 'bbb' })
+            //2-3 設定到狀態
+            setData(nextData)
           }
-        }}>
+        }}
+      >
         10-1. 在id為2後面插入id為5與文字為bbb的物件(splice)
       </button>
     </>
-  );
+  )
 }

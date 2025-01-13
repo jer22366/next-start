@@ -1,16 +1,7 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-export default function Cs03JsxPage(props) {
-  
-  return (
-    <>
-        <button onClick={() => {
-            alert('hello, JSX')
-            }}>
-        送出
-        </button>
-    </>
-  )
+export default function Cspage(props) {
+  return <>123</>
 }

@@ -1,0 +1,12 @@
+import { createContext } from 'react';
+
+// 1.建立與導出他
+// 傳入參數是null值是為了在錯誤或失誤時得到的值
+//通常是p-c關係建立錯誤造成的，也可以提供預設值
+export const AuthContext = createContext(null)
+
+// 設定displlayName可以在瀏覽器的react devtools上看到名稱 有助除錯
+// 沒設定的話都是使用`Context` 作為名稱
+AuthContext.displayName = 'AuthContext'
+
+// export { AuthContext }

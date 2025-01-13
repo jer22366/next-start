@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react'
 
-export default function Icon(props) {
+export default function Icon() {
   return (
     <>
-      <img src="../images/t1.jpg" alt="" />
+      <img src="/images/t1.jpg" />
     </>
   )
 }

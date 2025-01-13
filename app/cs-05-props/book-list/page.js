@@ -8,7 +8,7 @@ export default function BookListPage(props) {
     <>
       <h1>書籍清單範例-拆解組合元件</h1>
       <hr />
-      <List/>
+      <List />
     </>
   )
 }

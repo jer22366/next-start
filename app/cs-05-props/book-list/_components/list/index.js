@@ -41,7 +41,6 @@ export default function List() {
         </thead>
         <tbody>
           {books.map((book) => {
-            
             return (
               <Item key={book.isbn} book={book} onToggleFav={onToggleFav} />
             )
