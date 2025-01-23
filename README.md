@@ -149,6 +149,22 @@ content-type: application/json
 }
 ```
 
+回應:
+
+```json
+{
+  "status": "success",
+  "data": null
+}
+```
+
+
+```json
+{
+  "status" "failed",
+  "data": null
+}
+```
 ### R(讀取)
 
 #### 多筆(所有)
@@ -183,6 +199,11 @@ PUT /api/posts/1
 ```http
 DELETE /api/posts/1
 ```
+
+## RSC(伺服器端元件) +Server Function (伺服器端函式)
+
+- RSC: R讀取 元件階層資料存取 取代fetch+useEffect
+- SF:  CUD 搭配表單使用(form)使用 協定類似於 RPC()
 
 ## 前端路由
 

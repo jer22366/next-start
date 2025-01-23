@@ -1,11 +1,13 @@
+// 路由: /api/posts/:postId
 import db from '@/config/mysql'
 
-// api路由(Route Handler)
+// 單筆資料: api路由(Route Handler)
 export async function GET(request, { params }) {
   // 從動態路由參數中得到postId (對應資料夾名稱)
-  const postId = (await params).postId
+  // 需要轉成數字資料類型
+  const postId = Number((await params).postId)
 
-  console.log(postId)
+  console.log(typeof postId, postId)
 
   // 用select查詢一定是陣列資料
   const [posts] = await db.query(`SELECT * FROM post WHERE id = ${postId};`)
@@ -19,14 +21,31 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   // 從動態路由參數中得到postId (對應資料夾名稱)
-  const postId = (await params).postId
+  // 需要轉成數字資料類型
+  const postId = Number((await params).postId)
+  // 從request得到body資料
+  const body = await request.json()
+  console.log(body)
+
+  // 從body得到title, content資料
+  const { title, content } = body
+  // 執行查詢
+  const [result] = await db.query(
+    `UPDATE post SET title = '${title}', content = '${content}' WHERE id = ${postId};`
+  )
+  console.log(result)
 
   return Response.json({ status: 'success', data: null })
 }
 
 export async function DELETE(request, { params }) {
   // 從動態路由參數中得到postId (對應資料夾名稱)
-  const postId = (await params).postId
+  // 需要轉成數字資料類型
+  const postId = Number((await params).postId)
+
+  // 執行查詢
+  const [result] = await db.query(`DELETE FROM post WHERE id = ${postId};`)
+  console.log(result)
 
   return Response.json({ status: 'success', data: null })
 }
